@@ -66,7 +66,7 @@ public class RegistrationPageTest extends BaseTest {
 		Log.info("Clicking submit button");
 		register.ClickSubmitBtn();
 		System.out.println(driver.getTitle());
-		Assert.assertEquals(driver.getTitle(),"ParaBank | About Us" );
+		Assert.assertEquals(driver.getTitle(),"ParaBank | About U" );
 		test.pass("Registration Successful");
 		
 		
