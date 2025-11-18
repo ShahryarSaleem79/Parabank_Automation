@@ -70,16 +70,16 @@ public class RegistrationPage {
 		CustStateTextBox.clear();
 		CustStateTextBox.sendKeys(State);
 	}
-	public void EnterZipCode(int ZipCode) {
+	public void EnterZipCode(String ZipCode) {
 		CustZipCodeTextBox.clear();
 		CustZipCodeTextBox.sendKeys(String.valueOf(ZipCode));
 	}
 	
-	public void EnterPhoneNo(int PhoneNo) {
+	public void EnterPhoneNo(String PhoneNo) {
 		CustPhoneNumberTextBox.clear();
 		CustPhoneNumberTextBox.sendKeys(String.valueOf(PhoneNo));
 	}
-	public void EnterSSN(int SSN) {
+	public void EnterSSN(String SSN) {
 		CustSSNTextBox.clear();
 		CustSSNTextBox.sendKeys(String.valueOf(SSN));
 	}

@@ -6,8 +6,10 @@
       <class name="tests.RegistrationPageTest">
         <methods>
           <include name="setUp"/>
+          <include name="teardownReport"/>
           <include name="tearDown"/>
-          <include name="RegisterUser"/>
+          <include name="setupReport"/>
+          <include name="RegisterValidUser"/>
         </methods>
       </class> <!-- tests.RegistrationPageTest -->
     </classes>
