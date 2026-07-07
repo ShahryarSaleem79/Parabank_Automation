@@ -18,7 +18,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+
 import utils.ExtentReportManager;
 import utils.Log;
 
@@ -41,21 +41,28 @@ public class BaseTest {
 	//Setting Up things
 	@BeforeMethod
 	public void setUp(Method method) {
-		test = ExtentReportManager.createTest(method.getName());
-		Log.info("Starting driver");
-		
 
-		WebDriverManager.chromedriver().setup();
+	    test = ExtentReportManager.createTest(method.getName());
 
-		driver = new ChromeDriver();
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--headless");
-		Log.info("Maximizing window");
-		driver.manage().window().maximize();
-		Log.info("fetching url");
-		driver.get("https://parabank.parasoft.com/parabank/index.htm");
-		Log.info("adding implicit wait");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	    Log.info("Starting driver");
+
+	    WebDriverManager.chromedriver().setup();
+
+	    ChromeOptions options = new ChromeOptions();
+
+	    if (System.getenv("GITHUB_ACTIONS") != null) {
+	        options.addArguments("--headless=new");
+	        options.addArguments("--no-sandbox");
+	        options.addArguments("--disable-dev-shm-usage");
+	    }
+
+	    driver = new ChromeDriver(options);
+
+	    driver.manage().window().maximize();
+
+	    driver.get("https://parabank.parasoft.com/parabank/index.htm");
+
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 	}
 	
 	@AfterMethod
