@@ -1,9 +1,11 @@
 package base;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -35,9 +37,13 @@ public class BaseTest {
 	
 	//Setting Up things
 	@BeforeMethod
-	public void setUp() {
+	public void setUp(Method method) {
+		test = ExtentReportManager.createTest(method.getName());
 		Log.info("Starting driver");
 		driver = new FirefoxDriver();
+		FirefoxOptions options = new FirefoxOptions();
+		
+		options.addArguments("--headless");
 		Log.info("Maximizing window");
 		driver.manage().window().maximize();
 		Log.info("fetching url");
@@ -47,16 +53,24 @@ public class BaseTest {
 	}
 	
 	@AfterMethod
-	//Tearing down things
 	public void tearDown(ITestResult result) {
-		if(result.getStatus()== ITestResult.FAILURE) {
-			String screenshotPath = ExtentReportManager.captureScreenshot(driver, "Failure");
-			test.fail("Test Failed",MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
-		}
-		if (driver!=null) {
-			Log.info("closing browser");
-			driver.close();
-		}
+
+	    if (result.getStatus() == ITestResult.SUCCESS) {
+	        test.pass("Test Passed");
+	    }
+	    else if (result.getStatus() == ITestResult.FAILURE) {
+
+	        String screenshotPath =
+	                ExtentReportManager.captureScreenshot(driver, result.getName());
+
+	        test.fail(result.getThrowable(),
+	                MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
+	    }
+	    else if (result.getStatus() == ITestResult.SKIP) {
+	        test.skip("Test Skipped");
+	    }
+
+	    driver.quit();
 	}
 
 }

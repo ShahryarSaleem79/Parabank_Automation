@@ -42,32 +42,62 @@ public class RegistrationPageTest extends BaseTest {
 	
 		
 	@Test(dataProvider = "RegistrationData", description = "Valid Registration")
-	public void RegisterValidUser(String firstName, String lastName, String Address, String City, String State, String ZipCode,
+	public void RegisterUser(String firstName, String lastName, String Address, String City, String State, String ZipCode,
 			String PhoneNo, String SSN, String userName, String Password, String confirmPassword ) {
 		//add the test function and then only it will work
-		test = ExtentReportManager.createTest("Registration");
+		
+		Log.info("Application launched successfully");
+		test.info("Application launched successfully");
 		RegistrationPage register = new RegistrationPage(driver);
 		Log.info("clicking register button");
+		test.info("clicking register button");
 		register.ClickRegisterBtn();
-		test.info("Register button clicked");
+		Log.info("Navigated to Registration page");
+		test.info("Navigated to Registration page");
 		Log.info("Entering user information");
+		test.info("Entering user information");
 		register.EnterFirstName(firstName);
+		Log.info("Entering last name");
+		test.info("Entering last name");
 		register.EnterLastName(lastName);
+		Log.info("Entering address");
+		test.info("Entering address");
 		register.EnterAddress(Address);
+		Log.info("Entering city");
+		test.info("Entering city");
 		register.EnterCity(City);
+		Log.info("Entering state");
+		test.info("Entering state");
 		register.EnterState(State);
+		Log.info("Entering zip code");
+		test.info("Entering zip code");
 		register.EnterZipCode(ZipCode);
+		Log.info("Entering phone number");
+		test.info("Entering phone number");
 		register.EnterPhoneNo(PhoneNo);
+		Log.info("Entering SSN");
+		test.info("Entering SSN");
 		register.EnterSSN(SSN);
+		Log.info("Entering username");
+		test.info("Entering username");
 		register.EnterUsername(userName);
+		Log.info("Entering password");
+		test.info("Entering password");
 		register.EnterPassword(Password);
+		Log.info("Entering confirm password");
+		test.info("Entering confirm password");
 		register.EnterPasswordRepeat(confirmPassword);
-		test.info("Credentials entered");
-		Log.info("Clicking submit button");
+		
+		Log.info("Registration form submitted");
+		test.info("Registration form submitted");
 		register.ClickSubmitBtn();
+		Log.info("Registration successful");
+		test.info("Registration successful");
 		System.out.println(driver.getTitle());
-		Assert.assertEquals(driver.getTitle(),"ParaBank | About U" );
-		test.pass("Registration Successful");
+		Log.info("Dashoard displayed");
+		test.info("Dashoard displayed");
+		Assert.assertEquals(driver.getTitle(),"ParaBank | About Us" );
+		test.pass("User Created Successfully");
 		
 		
 			

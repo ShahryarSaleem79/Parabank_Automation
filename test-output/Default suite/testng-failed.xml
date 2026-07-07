@@ -9,7 +9,7 @@
           <include name="teardownReport"/>
           <include name="tearDown"/>
           <include name="setupReport"/>
-          <include name="RegisterValidUser"/>
+          <include name="RegisterValidUser" invocation-numbers="0"/>
         </methods>
       </class> <!-- tests.RegistrationPageTest -->
     </classes>
