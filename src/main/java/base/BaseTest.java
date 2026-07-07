@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.ITestResult;
@@ -11,11 +13,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import utils.ExtentReportManager;
 import utils.Log;
 
@@ -40,9 +43,12 @@ public class BaseTest {
 	public void setUp(Method method) {
 		test = ExtentReportManager.createTest(method.getName());
 		Log.info("Starting driver");
-		driver = new FirefoxDriver();
-		FirefoxOptions options = new FirefoxOptions();
 		
+
+		WebDriverManager.chromedriver().setup();
+
+		driver = new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--headless");
 		Log.info("Maximizing window");
 		driver.manage().window().maximize();
